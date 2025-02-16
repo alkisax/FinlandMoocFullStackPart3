@@ -1,0 +1,27 @@
+{
+  "name": "part3",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alkisax/FinlandMoocFullStackPart3.git"
+  },
+  "author": "alkis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alkisax/FinlandMoocFullStackPart3/issues"
+  },
+  "homepage": "https://github.com/alkisax/FinlandMoocFullStackPart3#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
