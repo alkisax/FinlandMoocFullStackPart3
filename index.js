@@ -27,7 +27,7 @@ let persons = [
 ]
 
 app.get('/', (request, response) => {
-  response.send('Hello part 3!!')
+  response.send('Hello part 3!')
 })
 
 app.get('/api/persons', (request, response) => {
@@ -45,6 +45,16 @@ app.get('/api/persons/:id', (request, response) => {
   }
 })
 
+app.get('/info', (request, response) => {
+  const currentDateTime = new Date();
+  response.send(
+    `
+    <p>Phonebook has info for ${persons.length} people</p>
+    <br/>
+    <p>${currentDateTime}</p>
+    `
+  )
+})
 
 app.delete('/api/persons/:id', (request, response) => {
   const id = request.params.id
