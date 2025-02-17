@@ -2,6 +2,35 @@ const express = require('express')
 const app = express()
 
 app.use(express.json())
+//middleware morgan does the same
+// const requestLogger = (request, response, next) => {
+//   console.log('Method:', request.method)
+//   console.log('Path:  ', request.path)
+//   console.log('Body:  ', request.body)
+//   console.log('---')
+//   next()
+// }
+// app.use(requestLogger)
+
+const morgan = require('morgan')
+
+const customMorgan = morgan(function (tokens, req, res) {
+  let log =  [
+    tokens.method(req, res),
+    tokens.url(req, res),
+    tokens.status(req, res),
+    tokens['response-time'](req, res), 'ms'
+  ].join(' ')
+
+  if (req.method === 'POST'){
+    log += `${JSON.stringify(req.body)}`
+  }
+  return log
+})
+app.use(customMorgan)
+// app.use(morgan('dev'))
+
+
 
 let persons = [
   { 
