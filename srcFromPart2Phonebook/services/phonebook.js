@@ -1,5 +1,6 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/persons'
+// const baseUrl = 'http://localhost:3001/persons'
+const baseUrl = '/api/notes' // this because they where uploaded as same service on render
 
 
 const getAll = () => {
