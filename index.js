@@ -2,6 +2,12 @@ const express = require('express')
 const app = express()
 
 app.use(express.json())
+
+app.use(express.static('dist')) // to create static render for dist, on the server
+
+const cors = require('cors')
+app.use(cors()) // added for same origin policy
+
 //middleware morgan does the same
 // const requestLogger = (request, response, next) => {
 //   console.log('Method:', request.method)
@@ -135,6 +141,10 @@ app.post('/api/persons', (request, response) => {
   response.json(person)
 })
 
-const PORT = 3001
-app.listen(PORT)
-console.log(`Server running on port ${PORT}`)
+// const PORT = 3001
+// app.listen(PORT)
+// console.log(`Server running on port ${PORT}`)
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
