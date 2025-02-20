@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
     "start": "node index.js"
- },
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alkisax/FinlandMoocFullStackPart3.git"
@@ -21,6 +21,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.2",
+    "mongoose": "^8.10.1",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
