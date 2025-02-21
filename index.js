@@ -134,6 +134,21 @@ app.post('/api/persons', (request, response, next) => {
   .catch (error => next(error))  
 })
 
+app.put('/api/persons/:id', (request, response, next) => {
+  const body = request.body
+
+  const person = {
+    name: body.name,
+    number: body.number,
+  }
+
+  Person.findByIdAndUpdate(request.params.id, person, { new: true })
+    .then(updatedNote => {
+      response.json(updatedNote)
+    })
+    .catch(error => next(error))
+})
+
 //catch error middleware
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
