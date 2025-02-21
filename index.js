@@ -93,14 +93,11 @@ app.delete('/api/persons/:id', (request, response) => {
     .then(() => {
       response.status(204).end()
     })
-    .catch (error => {
-      console.error(error)
-      response.status(500).json({ error: 'server error' })
-    }) 
+    .catch(error => next(error)); 
 })
 
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
   if (!body.name  || !body.number) {
@@ -134,11 +131,26 @@ app.post('/api/persons', (request, response) => {
     }
     response.json(savedPerson)
   })
-  .catch (error => {
-        console.error(error)
-  response.status(500).json({ error: 'server error' })
-  })  
+  .catch (error => next(error))  
 })
+
+//catch error middleware
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+app.use(unknownEndpoint)
+
+// Error handling middleware (MUST be last)
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message);
+
+  if (error.name === 'CastError') {
+    return response.status(400).json({ error: 'malformatted id' });
+  }
+
+  next(error); // Pass error to Express default handler if not handled
+};
+app.use(errorHandler);
 
 const PORT = process.env.PORT 
 app.listen(PORT, () => {
