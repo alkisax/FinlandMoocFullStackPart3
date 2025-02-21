@@ -8,16 +8,6 @@ app.use(express.static('dist')) // to create static render for dist, on the serv
 const cors = require('cors')
 app.use(cors()) // added for same origin policy
 
-//middleware morgan does the same
-// const requestLogger = (request, response, next) => {
-//   console.log('Method:', request.method)
-//   console.log('Path:  ', request.path)
-//   console.log('Body:  ', request.body)
-//   console.log('---')
-//   next()
-// }
-// app.use(requestLogger)
-
 const morgan = require('morgan')
 
 const customMorgan = morgan(function (tokens, req, res) {
@@ -37,6 +27,10 @@ app.use(customMorgan)
 // app.use(morgan('dev'))
 
 
+//mongoose start here
+require('dotenv').config();
+const Note = require('./models/person')
+//mogoose end here
 
 let persons = [
   { 
@@ -66,7 +60,9 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/persons', (request, response) => {
-  response.json(persons)
+    Note.find({}).then(persons => {
+      response.json(persons)
+    })
 })
 
 app.get('/api/persons/:id', (request, response) => {

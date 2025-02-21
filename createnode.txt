@@ -85,19 +85,36 @@ Fly.io creates a file fly.toml
   processes = ["app"]
 
 
-fly launch --no-deploy
+  fly launch --no-deploy
 
 ****
 render
 ****
 front:
-npm run build
+  npm run build
 ****
 to create static render for dist, on the server 
-app.use(express.static('dist'))
+  app.use(express.static('dist'))
 
 ***MongoDB***
 npm install mongoose
 *** atlas connection string node mongo.js 2102011895 (pass: 2102011895)
 Replace <db_password> with the password for the alkisax database user. Ensure any option params are URL encoded:
-mongodb+srv://alkisax:<db_password>@cluster0.8ioq6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+  mongodb+srv://alkisax:<db_password>@cluster0.8ioq6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+***ENV!!!!!***
+To avoid authentication issues with the password variable in index.js, we need to create a .env file by running 
+  npm install dotenv 
+
+in the command line. Then, let's create the .env file in the root of your directory. In that file, you should place your URI:
+  MONGODB_URI="mongodb+srv://alkisax:2102011895@cluster0.8ioq6.mongodb.net/noteApp?retryWrites=true&w=majority&appName=Cluster0"
+
+remember to add it to your .gitignore
+Then, in your index.js file, make the necessary changes with the following line so that your code can access the URL in your .env file:
+
+  const url = process.env.MONGODB_URI;
+
+  npm install dotenv
+
+  require('dotenv').config();
+
