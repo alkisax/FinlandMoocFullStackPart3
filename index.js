@@ -158,6 +158,7 @@ app.use(unknownEndpoint)
 // Error handling middleware (MUST be last)
 const errorHandler = (error, request, response, next) => {
   console.error('Error handler triggered', error.message);
+  return response.status(400).json({ error: `Person validation failed: name: Path 'name' (${name}) is shorter than the minimum allowed length (3).` });
 
   if (error.name === 'CastError') {
     return response.status(400).json({ error: 'malformatted id' });
