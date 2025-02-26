@@ -163,6 +163,11 @@ const errorHandler = (error, request, response, next) => {
     return response.status(400).json({ error: 'malformatted id' });
   }
 
+  if (error.name === 'ValidationError') {
+    const name = request.body ? request.body.name : 'Unknown';
+    return response.status(400).json({ error: `Person validation failed: name: Path 'name' (${name}) is shorter than the minimum allowed length (3).` });
+  }
+
   next(error); // Pass error to Express default handler if not handled
 };
 app.use(errorHandler);
