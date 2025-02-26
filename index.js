@@ -164,9 +164,20 @@ const errorHandler = (error, request, response, next) => {
   }
 
   if (error.name === 'ValidationError') {
-    console.log("Sending error to frontend:", error.message);
-    const name = request.body ? request.body.name : 'Unknown';
-    return response.status(400).json({ error: `Person validation failed: name: Path 'name' (${name}) is shorter than the minimum allowed length (3).` });
+    if (error.errors.name) {
+      const name = request.body ? request.body.name : 'Unknown';
+      return response.status(400).json({ error: `Person validation failed: name: Path 'name' (${name}) is shorter than the minimum allowed length (3).` });
+    }
+
+    if (error.errors.number) {
+      return response.status(400).json({
+        error: `Person validation failed: ${error.errors.number.message}`
+      });    
+    }
+
+    return response.status(400).json({
+      error: 'Person validation failed: name and/or phone number are invalid.',
+    });
   }
 
   next(error); // Pass error to Express default handler if not handled
