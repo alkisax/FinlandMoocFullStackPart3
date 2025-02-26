@@ -157,7 +157,7 @@ app.use(unknownEndpoint)
 
 // Error handling middleware (MUST be last)
 const errorHandler = (error, request, response, next) => {
-  console.error(error.message);
+  console.error('Error handler triggered', error.message);
 
   if (error.name === 'CastError') {
     return response.status(400).json({ error: 'malformatted id' });
