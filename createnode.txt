@@ -114,7 +114,7 @@ Then, in your index.js file, make the necessary changes with the following line 
 
   const url = process.env.MONGODB_URI;
 
-  npm install dotenv
+
 
   require('dotenv').config();
 
