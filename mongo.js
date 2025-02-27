@@ -8,24 +8,24 @@ if (process.argv.length<3) {
 const password = process.argv[2]
 
 // διαχείρηση του username και Password και αν κάνουμε create ή read
-let isRead = false;
+let isRead = false
 if (process.argv.length === 3) {
-   isRead = true
-} 
+  isRead = true
+}
 let isCreate = false
 if (process.argv.length > 3) {
   isCreate = true
-} 
+}
 
 let name = ''
 let number = ''
 if (process.argv.length === 4) {
-  name = process.argv [3] 
+  name = process.argv [3]
 }
 if (process.argv.length > 4){
-  name = process.argv [3] 
+  name = process.argv [3]
   number = process.argv [4]
-} 
+}
 
 // το url to πείρα απο το atlas mongodb εδω βρίσκετε και το όνομα της βάσης μου
 const url =
@@ -53,9 +53,9 @@ if (isCreate) {
     number: number,
   })
   // σώζω και κλείνω
-  person.save().then(result => {
+  person.save().then(() => {
     console.log('person saved!')
-    console.log(person)  
+    console.log(person)
     mongoose.connection.close()
   })
 }
@@ -64,7 +64,7 @@ if (isCreate) {
 if (isRead) {
   //για να βρώ
   Person.find({}).then(result => {
-    console.log("phonebook:");    
+    console.log('phonebook:')
     result.forEach(person => {
       console.log(`${person.name}: ${person.number}`)
     })

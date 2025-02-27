@@ -29,41 +29,41 @@ app.use(customMorgan)
 
 
 //mongoose start here
-require('dotenv').config();
+require('dotenv').config()
 const Person = require('./models/person')
 //mogoose end here
 
-let persons = [
-  { 
-    "id": "1",
-    "name": "Arto Hellas", 
-    "number": "040-123456"
-  },
-  { 
-    "id": "2",
-    "name": "Ada Lovelace", 
-    "number": "39-44-5323523"
-  },
-  { 
-    "id": "3",
-    "name": "Dan Abramov", 
-    "number": "12-43-234345"
-  },
-  { 
-    "id": "4",
-    "name": "Mary Poppendieck", 
-    "number": "39-23-6423122"
-  }
-]
+// let persons = [
+//   {
+//     "id": "1",
+//     "name": "Arto Hellas",
+//     "number": "040-123456"
+//   },
+//   {
+//     "id": "2",
+//     "name": "Ada Lovelace",
+//     "number": "39-44-5323523"
+//   },
+//   {
+//     "id": "3",
+//     "name": "Dan Abramov",
+//     "number": "12-43-234345"
+//   },
+//   {
+//     "id": "4",
+//     "name": "Mary Poppendieck",
+//     "number": "39-23-6423122"
+//   }
+// ]
 
 app.get('/', (request, response) => {
   response.send('Hello part 3!')
 })
 
 app.get('/api/persons', (request, response) => {
-    Person.find({}).then(persons => {
-      response.json(persons)
-    })
+  Person.find({}).then(persons => {
+    response.json(persons)
+  })
 })
 
 app.get('/api/persons/:id', (request, response) => {
@@ -75,16 +75,16 @@ app.get('/api/persons/:id', (request, response) => {
 
 app.get('/info', (request, response) => {
   Person.countDocuments({})
-  .then(count => {
-    const currentDateTime = new Date();
-    response.send(
-      `
+    .then(count => {
+      // const currentDateTime = new Date();
+      response.send(
+        `
       <p>Phonebook has info for ${count} people</p>
       <br/>
       <p>${count}</p>
       `
-    )
-  })
+      )
+    })
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
@@ -93,7 +93,7 @@ app.delete('/api/persons/:id', (request, response, next) => {
     .then(() => {
       response.status(204).end()
     })
-    .catch(error => next(error)); 
+    .catch(error => next(error))
 })
 
 
@@ -105,7 +105,7 @@ app.post('/api/persons', (request, response, next) => {
       error: 'name/number missing'
     })
   }
-  
+
   // Check if the name already exists in MongoDB
   Person.findOne({ name: body.name })
     .then (exists => {
@@ -120,18 +120,18 @@ app.post('/api/persons', (request, response, next) => {
         number: body.number
       })
 
-      console.log("POSTED: ", person);
+      console.log('POSTED: ', person)
 
       return person.save()
     })
 
-  .then(savedPerson => {
-    if (!savedPerson) {
-      return
-    }
-    response.json(savedPerson)
-  })
-  .catch (error => next(error))  
+    .then(savedPerson => {
+      if (!savedPerson) {
+        return
+      }
+      response.json(savedPerson)
+    })
+    .catch (error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
@@ -157,34 +157,34 @@ app.use(unknownEndpoint)
 
 // Error handling middleware (MUST be last)
 const errorHandler = (error, request, response, next) => {
-  console.error('Error handler triggered', error.message);
+  console.error('Error handler triggered', error.message)
 
   if (error.name === 'CastError') {
-    return response.status(400).json({ error: 'malformatted id' });
+    return response.status(400).json({ error: 'malformatted id' })
   }
 
   if (error.name === 'ValidationError') {
     if (error.errors.name) {
-      const name = request.body ? request.body.name : 'Unknown';
-      return response.status(400).json({ error: `Person validation failed: name: Path 'name' (${name}) is shorter than the minimum allowed length (3).` });
+      const name = request.body ? request.body.name : 'Unknown'
+      return response.status(400).json({ error: `Person validation failed: name: Path 'name' (${name}) is shorter than the minimum allowed length (3).` })
     }
 
     if (error.errors.number) {
       return response.status(400).json({
         error: `Person validation failed: ${error.errors.number.message}`
-      });    
+      })
     }
 
     return response.status(400).json({
       error: 'Person validation failed: name and/or phone number are invalid.',
-    });
+    })
   }
 
-  next(error); // Pass error to Express default handler if not handled
-};
-app.use(errorHandler);
+  next(error) // Pass error to Express default handler if not handled
+}
+app.use(errorHandler)
 
-const PORT = process.env.PORT 
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
