@@ -4,7 +4,7 @@
 
 **Github source code:** [frontend](https://github.com/alkisax/FinlandMOOCFullStack/tree/master/part2/phonebook) // [backend](https://github.com/alkisax/FinlandMoocFullStackPart3)
 
-**Full README:** https://github.com/alkisax/biasedTarotReactViteNode/blob/main/README.md
+**Full README:** https://github.com/alkisax/FinlandMoocFullStackPart3/blob/main/USERREADME.md
 
 
 
