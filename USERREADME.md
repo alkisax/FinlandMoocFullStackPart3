@@ -6,8 +6,6 @@
 
 **Full README:** https://github.com/alkisax/FinlandMoocFullStackPart3/blob/main/USERREADME.md
 
-
-
 This project is a full-stack phonebook application built using React for the frontend and Node.js with Express and MongoDB for the backend. The app allows users to add, update, delete, and filter contacts, ensuring a smooth and user-friendly experience.
 
 ---
