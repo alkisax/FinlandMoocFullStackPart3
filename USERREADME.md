@@ -2,7 +2,7 @@
 
 **Run the App:** https://finlandmoocfullstackpart3.onrender.com
 
-**Github source code:** [frontend](https://github.com/alkisax/FinlandMOOCFullStack/tree/master/part2/phonebook) [backend](https://github.com/alkisax/FinlandMoocFullStackPart3)
+**Github source code:** [frontend](https://github.com/alkisax/FinlandMOOCFullStack/tree/master/part2/phonebook) // [backend](https://github.com/alkisax/FinlandMoocFullStackPart3)
 
 **Full README:** https://github.com/alkisax/biasedTarotReactViteNode/blob/main/README.md
 
